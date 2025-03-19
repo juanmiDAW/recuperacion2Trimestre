@@ -11,7 +11,7 @@
                     <div class="p-6 text-gray-900">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-                            @livewire('buscador-alumnos')
+                            {{-- @livewire('buscador-alumnos') --}}
                         </div>
                         {{-- <div class="mt-6 text-center">
                             <a href="{{ route('alumnos.create') }}"

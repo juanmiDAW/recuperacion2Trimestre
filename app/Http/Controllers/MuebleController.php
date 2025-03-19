@@ -6,6 +6,8 @@ use App\Http\Requests\StoreMuebleRequest;
 use App\Http\Requests\UpdateMuebleRequest;
 use App\Models\Mueble;
 
+use function PHPUnit\Framework\returnSelf;
+
 class MuebleController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class MuebleController extends Controller
      */
     public function index()
     {
-        //
+        return view('muebles.index', ['muebles'=>Mueble::all()]);
     }
 
     /**
