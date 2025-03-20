@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateMuebleRequest;
 use App\Models\Fabricado;
 use App\Models\Mueble;
 use App\Models\Prefabricado;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use function PHPUnit\Framework\returnSelf;
@@ -32,7 +33,7 @@ class MuebleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMuebleRequest $request)
+    public function store(Request $request)
     {
         if ($request->tipo === 'App\Models\Fabricado') {
             $ancho = $request->ancho;
@@ -41,21 +42,21 @@ class MuebleController extends Controller
             $precio = ($ancho * $alto) * 1.20;
 
             $validate = $request->validate([
-                'ancho' => 'required|decimal',
-                'alto' => 'required|decimal',
+                'ancho' => 'required|decimal:2,2',
+                'alto' => 'required|numeric:decimal:2,2',
             ]);
+            // dd($validate);
 
-            $fabricado = Fabricado::crate($validate);
-            
-            $this->crearMueble($fabricado->id, $request->tipo, $precio,$request);
+            $fabricado = Fabricado::create($validate);
+
+            $this->crearMueble($fabricado->id, $request->tipo, $precio, $request);
         } else if ($request->tipo === 'App\Models\Prefabricado') {
             $precio = $request->precio;
 
             $prefabricado = Prefabricado::create();
-            $this->crearMueble($prefabricado->id, $request->tipo, $precio,$request);
-
+            $this->crearMueble($prefabricado->id, $request->tipo, $precio, $request);
         }
-        
+
         return redirect()->route('muebles.index');
     }
 
@@ -91,26 +92,28 @@ class MuebleController extends Controller
         //
     }
 
-    public function crearMueble($id, $tipo, $precio,$request)
+    public function crearMueble($id, $tipo, $precio, $request)
     {
         // Validar los datos antes de crear el mueble
-        $validate = Validator::make([
+        $validate = $request->validate([
             'denominacion' => 'required|string|max:255',
             'precio' => 'required|numeric|min:0',
-            'fabricable_type' => 'required|string|in:App\Models\Fabricado,App\Models\Prefabricado',
-            'fabricable_id' => 'required|integer',
+            'tipo' => 'required|string|in:App\Models\Fabricado,App\Models\Prefabricado',
         ]);
+        dd($validate);
+        // if($request['ancho']&&$request['alto']){
+        //     $validate
+        // }
+        $validate['fabricable_id'] = $id;
+        $validate['fabricable_type'] = $tipo;
+        $validate['precio'] = $precio;
+        // dd($validate);
 
-        if ($validate->fails()) {
-            return response()->json(['errors' => $validate->errors()], 400);
-        }
+        // if ($validate->fails()) {
+        //     return response()->json(['errors' => $validate->errors()], 400);
+        // }
 
         // Crear el Mueble asociado
-        return Mueble::create([
-            'denominacion' => $request->denominacion, 
-            'precio' => $precio,
-            'fabricable_type' => $tipo,
-            'fabricable_id' => $id,
-        ]);
+        return Mueble::create($validate);
     }
 }

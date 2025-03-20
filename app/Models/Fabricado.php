@@ -10,7 +10,7 @@ class Fabricado extends Model
     /** @use HasFactory<\Database\Factories\FabricadoFactory> */
     use HasFactory;
 
-    protected $fillable = [' ancho', 'alto'];
+    protected $fillable = ['ancho', 'alto'];
 
     public function muebles(){
         return $this->hasMany(Mueble::class);
