@@ -11,14 +11,14 @@
                     <div class="p-6 text-gray-900">
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-                            {{-- @livewire('buscador-alumnos') --}}
+                            @livewire('listado-muebles')
                         </div>
-                        {{-- <div class="mt-6 text-center">
-                            <a href="{{ route('alumnos.create') }}"
+                        <div class="mt-6 text-center">
+                            <a href="{{ route('muebles.create') }}"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Crear un nuevo alumno
+                                Crear mueble
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
