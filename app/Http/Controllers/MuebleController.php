@@ -73,15 +73,25 @@ class MuebleController extends Controller
      */
     public function edit(Mueble $mueble)
     {
-        //
+        // dd($mueble);
+        return view('muebles.edit', ['mueble'=>$mueble]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMuebleRequest $request, Mueble $mueble)
+    public function update(Request $request, Mueble $mueble)
     {
-        //
+        $validate = $request->validate([
+            'denominacion' => 'required|string|max:255',
+
+        ]);
+
+        if($request->fabricable_type === 'App\Models\Fabicado'){
+
+        }
+
+
     }
 
     /**
