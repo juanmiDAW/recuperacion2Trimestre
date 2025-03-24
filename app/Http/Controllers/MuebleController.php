@@ -39,7 +39,7 @@ class MuebleController extends Controller
             $ancho = $request->ancho;
             $alto = $request->alto;
 
-            $precio = ($ancho * $alto) * 1.20;
+            $precio = ($ancho * $alto) * 10.20;
 
             $validate = $request->validate([
                 'ancho' => 'required|numeric',
