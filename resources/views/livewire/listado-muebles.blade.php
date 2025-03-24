@@ -14,7 +14,7 @@
                       <td class="px-6 py-4">{{ $mueble->precio }}</td>
 
                     @if ($mueble->fabricable_type === 'App\Models\Fabricado')
-                          <td class="px-6 py-4">{{ $mueble->fabricados->ancho }} X {{ $mueble->fabricados->alto }}</td>
+                          <td class="px-6 py-4">{{ $mueble->fabricable->ancho }}m X {{ $mueble->fabricable->alto }}m</td>
                     @else
                       <td class="px-6 py-4">Sin medidas</td>
                     @endif

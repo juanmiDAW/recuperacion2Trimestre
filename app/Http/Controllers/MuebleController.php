@@ -41,15 +41,14 @@ class MuebleController extends Controller
 
             $precio = ($ancho * $alto) * 1.20;
 
-            // $validate = $request->validate([
-            //     'ancho' => 'required|decimal:2,2',
-            //     'alto' => 'required|decimal:2,2',
-            // ]);
-            // dd($validate);
+            $validate = $request->validate([
+                'ancho' => 'required|numeric',
+                'alto' => 'required|numeric',
+            ]);
 
             $fabricado = Fabricado::create($validate);
-
             $this->crearMueble($fabricado->id, $request->tipo, $precio, $request);
+
         } else if ($request->tipo === 'App\Models\Prefabricado') {
             $precio = $request->precio;
 
@@ -98,7 +97,6 @@ class MuebleController extends Controller
         // Validar los datos antes de crear el mueble
         $validate = $request->validate([
             'denominacion' => 'required|string|max:255',
-            'precio' => 'required|numeric|min:0',
             'tipo' => 'required|string|in:App\Models\Fabricado,App\Models\Prefabricado',
         ]);
         // dd($validate);
@@ -113,7 +111,6 @@ class MuebleController extends Controller
             $validate['ancho'] = $request->ancho;
             $validate['alto'] = $request->alto;
         }
-        // dd($validate);
 
         // if ($validate->fails()) {
         //     return response()->json(['errors' => $validate->errors()], 400);
