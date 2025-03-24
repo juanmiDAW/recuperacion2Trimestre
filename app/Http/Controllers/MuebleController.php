@@ -64,8 +64,10 @@ class MuebleController extends Controller
      * Display the specified resource.
      */
     public function show(Mueble $mueble)
+    
     {
-        //
+        dd($mueble);
+        return view('muebles.show', ['mueble'=>$mueble]);
     }
 
     /**
@@ -100,7 +102,7 @@ class MuebleController extends Controller
             'precio' => 'required|numeric|min:0',
             'tipo' => 'required|string|in:App\Models\Fabricado,App\Models\Prefabricado',
         ]);
-        dd($validate);
+        // dd($validate);
         // if($request['ancho']&&$request['alto']){
         //     $validate
         // }

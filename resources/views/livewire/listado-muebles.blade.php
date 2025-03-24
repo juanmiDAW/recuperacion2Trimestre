@@ -10,7 +10,7 @@
         <tbody>
             @foreach ($muebles as $mueble)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                      <td class="px-6 py-4">{{ $mueble->denominacion }}</td>
+                      <td class="px-6 py-4"><a href="{{route('muebles.show', $mueble)}}" class=" text-blue-800">{{ $mueble->denominacion }}</a></td>
                       <td class="px-6 py-4">{{ $mueble->precio }}</td>
 
                     @if ($mueble->fabricable_type === 'App\Models\Fabricado')
