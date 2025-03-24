@@ -41,10 +41,10 @@ class MuebleController extends Controller
 
             $precio = ($ancho * $alto) * 1.20;
 
-            $validate = $request->validate([
-                'ancho' => 'required|decimal:2,2',
-                'alto' => 'required|numeric:decimal:2,2',
-            ]);
+            // $validate = $request->validate([
+            //     'ancho' => 'required|decimal:2,2',
+            //     'alto' => 'required|decimal:2,2',
+            // ]);
             // dd($validate);
 
             $fabricado = Fabricado::create($validate);
@@ -64,10 +64,9 @@ class MuebleController extends Controller
      * Display the specified resource.
      */
     public function show(Mueble $mueble)
-    
+
     {
-        dd($mueble);
-        return view('muebles.show', ['mueble'=>$mueble]);
+        return view('muebles.show', ['mueble' => $mueble]);
     }
 
     /**
@@ -109,6 +108,11 @@ class MuebleController extends Controller
         $validate['fabricable_id'] = $id;
         $validate['fabricable_type'] = $tipo;
         $validate['precio'] = $precio;
+
+        if ($request->tipo === 'App\Models\Fabricado') {
+            $validate['ancho'] = $request->ancho;
+            $validate['alto'] = $request->alto;
+        }
         // dd($validate);
 
         // if ($validate->fails()) {
