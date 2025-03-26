@@ -6,7 +6,9 @@ use App\Http\Requests\StorePedidoRequest;
 use App\Http\Requests\UpdatePedidoRequest;
 use App\Models\Mueble;
 use App\Models\Pedido;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\ViewErrorBag;
 
 class PedidoController extends Controller
 {
@@ -35,6 +37,9 @@ class PedidoController extends Controller
             'mueble_id'=>'required|integer',
             'cantidad'=>'required|integer',
         ]);
+        if(auth()->user() === null){
+            return redirect()->route('register');
+        }
         
         $validate['user_id'] = auth()->user()->id;
 
