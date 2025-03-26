@@ -116,7 +116,15 @@ class MuebleController extends Controller
      */
     public function destroy(Mueble $mueble)
     {
-        //
+
+        if($mueble->fabricable){
+
+            $mueble->fabricable->delete();
+        }
+
+        $mueble->delete();
+        
+        return redirect()->route('muebles.index');
     }
 
     public function crearMueble($id, $tipo, $precio, $request)
