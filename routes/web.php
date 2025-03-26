@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MuebleController;
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 use function PHPUnit\Framework\returnSelf;
@@ -22,3 +23,5 @@ Route::resource('muebles', MuebleController::class);
 Route::post('/register', function(){
     return view('livewire.pages.auth.register');
 })->name('register');
+
+Route::resource('pedidos', PedidoController::class);

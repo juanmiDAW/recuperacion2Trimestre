@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('cantidad');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('mueble_id')->constrained();
             $table->timestamps();
         });
     }

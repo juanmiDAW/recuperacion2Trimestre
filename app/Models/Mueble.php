@@ -16,5 +16,9 @@ class Mueble extends Model
         return $this->morphTo();
     }
 
+    public function pedido(){
+        return $this->hasOne(Pedido::class);
+    }
+
 
 }
