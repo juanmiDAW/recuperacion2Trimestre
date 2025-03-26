@@ -9,6 +9,8 @@ use App\Models\Mueble;
 use App\Models\Prefabricado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Validate;
+use Psy\CodeCleaner\ReturnTypePass;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -48,7 +50,6 @@ class MuebleController extends Controller
 
             $fabricado = Fabricado::create($validate);
             $this->crearMueble($fabricado->id, $request->tipo, $precio, $request);
-
         } else if ($request->tipo === 'App\Models\Prefabricado') {
             $precio = $request->precio;
 
@@ -74,7 +75,7 @@ class MuebleController extends Controller
     public function edit(Mueble $mueble)
     {
         // dd($mueble);
-        return view('muebles.edit', ['mueble'=>$mueble]);
+        return view('muebles.edit', ['mueble' => $mueble]);
     }
 
     /**
@@ -82,16 +83,32 @@ class MuebleController extends Controller
      */
     public function update(Request $request, Mueble $mueble)
     {
-        $validate = $request->validate([
-            'denominacion' => 'required|string|max:255',
+        if ($mueble->fabricable_type == 'App\Models\Fabricado') {
+            $validate = $request->validate([
+                'denominacion' => 'required|string|max:255',
+            ]);
 
-        ]);
+            $mueble->fill($validate);
 
-        if($request->fabricable_type === 'App\Models\Fabicado'){
+            $validate = $request->validate([
+                'ancho' => 'required|numeric',
+                'alto' => 'required|numeric',
+            ]);
+           
+            $mueble->fabricable->fill($validate);
+            $mueble->fabricable->save();
 
+        } else if ($mueble->fabricable_type == 'App\Models\Prefabricado') {
+            $validate = $request->validate([
+                'denominacion' => 'required|string|max:255',
+                'precio' => 'required|numeric',
+            ]);
+
+            $mueble->fill($validate);
+            $mueble->save();
         }
 
-
+        return redirect()->route('muebles.index');
     }
 
     /**

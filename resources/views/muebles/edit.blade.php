@@ -10,7 +10,6 @@
             <form method="POST" action="{{ route('muebles.update', $mueble) }}" class="max-w-sm mx-auto">
                 @method('PUT')
                 @csrf
-
                 <div class="mb-5">
                     <x-input-label for="denominacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Denominacion
